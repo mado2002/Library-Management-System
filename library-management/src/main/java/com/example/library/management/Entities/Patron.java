@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,8 @@ public class Patron {
     @NotBlank(message = "Address is mandatory")
     private String address;
     @NotBlank(message = "Phone number is mandatory")
-    @Pattern(regexp="^\\+\\d{13}$",message = "Phone number should be a valid phone number with country code")
+    @Pattern(regexp="^\\+\\d{12}$",message = "Phone number should be a valid phone number with country code")
     private String phoneNumber;
+    @Email(message = "Email should be valid")
+    private String email;
 }

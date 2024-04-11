@@ -4,9 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,5 +20,10 @@ public class ApplicationExceptionHandler {
             errorMap.put(error.getField(),error.getDefaultMessage());
         });
         return errorMap;
+    }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public String handleSqlIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException ex){
+        return "Cannot delete book or patron as the book not returned or patron has borrowed this book";
     }
 }

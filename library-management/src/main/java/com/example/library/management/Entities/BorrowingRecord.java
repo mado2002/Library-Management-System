@@ -1,7 +1,6 @@
 package com.example.library.management.Entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +8,6 @@ import java.util.Date;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class BorrowingRecord {
     @Id
@@ -29,4 +27,12 @@ public class BorrowingRecord {
 
     @Temporal(TemporalType.DATE)
     private Date returnDate;
+
+    public BorrowingRecord(Book book, Patron patron, Date borrowingDate) {
+        this.book = book;
+        this.patron = patron;
+        this.borrowingDate = borrowingDate;
+        this.returnDate = null;
+    }
 }
+
