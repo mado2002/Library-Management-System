@@ -5,6 +5,7 @@ import com.example.library.management.Services.BorrowingService;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -14,6 +15,7 @@ import static org.mockito.Mockito.when;
 class BorrowingControllerTest {
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void borrowBook_Success() throws Exception {
         // Mock BorrowingService
         BorrowingService borrowingService = mock(BorrowingService.class);
@@ -32,6 +34,7 @@ class BorrowingControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void borrowBook_NotFound() throws Exception {
         // Mock BorrowingService
         BorrowingService borrowingService = mock(BorrowingService.class);
@@ -49,6 +52,7 @@ class BorrowingControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void returnBook_Success() throws Exception {
         // Mock BorrowingService
         BorrowingService borrowingService = mock(BorrowingService.class);
@@ -67,6 +71,7 @@ class BorrowingControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void returnBook_NotFound() throws Exception {
         // Mock BorrowingService
         BorrowingService borrowingService = mock(BorrowingService.class);

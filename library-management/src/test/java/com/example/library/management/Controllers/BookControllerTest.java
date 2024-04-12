@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.http.MediaType;
@@ -25,6 +26,7 @@ class BookControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testGetAllBooks() {
         // Mock BookService
         BookService bookService = mock(BookService.class);
@@ -38,6 +40,7 @@ class BookControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void addBook() {
         BookService bookService = mock(BookService.class);
         Book book = new Book(1L, "Book 1", "Author 1",2024,"9780321856715");
@@ -48,6 +51,7 @@ class BookControllerTest {
         assertEquals(book, responseEntity.getBody());
     }
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testAddBookWithInvalidInput() throws Exception {
         // Invalid book with empty title
         String requestBody = "{\"id\":1,\"title\":\"\",\"author\":\"Author 1\",\"publicationYear\":202,\"isbn\":\"9780321856715\"}";
@@ -59,6 +63,7 @@ class BookControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void deleteBook() {
         BookService bookService = mock(BookService.class);
         when(bookService.deleteBook(1L)).thenReturn(true);
@@ -68,6 +73,7 @@ class BookControllerTest {
         assertEquals("Book deleted successfully", responseEntity.getBody());
     }
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void deleteBook2() {
         BookService bookService = mock(BookService.class);
         when(bookService.deleteBook(1L)).thenReturn(false);
@@ -77,6 +83,7 @@ class BookControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void getBookById() {
         BookService bookService = mock(BookService.class);
         Book book = new Book(1L, "Book 1", "Author 1",2024,"9780321856715");
@@ -87,6 +94,7 @@ class BookControllerTest {
         assertEquals(book, responseEntity.getBody());
     }
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void getBookById2() {
         BookService bookService = mock(BookService.class);
         when(bookService.getBookById(1L)).thenReturn(null);
@@ -97,6 +105,7 @@ class BookControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void updateBook() {
         BookService bookService = mock(BookService.class);
         Book book = new Book(1L, "Book 1", "Author 1",2024,"9780321856715");

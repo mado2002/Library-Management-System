@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -21,7 +22,10 @@ class PatronControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+
+
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void getAllPatrons() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/patrons")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -32,6 +36,7 @@ class PatronControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void addPatron() throws Exception {
         String requestBody = "{\"name\":\"John Doe\",\"address\":\"123 Main Street\",\"phoneNumber\":\"+123456789012\",\"email\":\"johndoe@example.com\"}";
             mockMvc.perform(MockMvcRequestBuilders.post("/api/patrons")
@@ -42,6 +47,7 @@ class PatronControllerTest {
 
     }
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void addPatron1() throws Exception {
         // Invalid patron with invalid phone number and email
         String requestBody = "{\"name\":\"John Doe\",\"address\":\"123 Main Street\",\"phoneNumber\":\"+12345678\",\"email\":\"johndoe\"}";
@@ -54,6 +60,7 @@ class PatronControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void getPatronById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/patrons/2")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -66,6 +73,7 @@ class PatronControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void updatePatron() throws Exception {
         String requestBody = "{\"name\":\"John Doe\",\"address\":\"123 Main Street\",\"phoneNumber\":\"+201029979868\",\"email\":\"johndoe@example.com\"}";
         mockMvc.perform(MockMvcRequestBuilders.put("/api/patrons/5")
@@ -74,6 +82,7 @@ class PatronControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void updatePatron2() throws Exception {
         String requestBody = "{\"name\":\"\",\"address\":\"123 Main Street\",\"phoneNumber\":\"+201029979868\",\"email\":\"johndoe@example.com\"}";
         mockMvc.perform(MockMvcRequestBuilders.put("/api/patrons/5")
@@ -83,6 +92,7 @@ class PatronControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void deletePatron() {
         PatronService patronService = mock(PatronService.class);
         when(patronService.deletePatron(1L)).thenReturn(true);
