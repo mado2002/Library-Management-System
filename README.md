@@ -66,7 +66,7 @@ password: 1234
 **Note:** Before hitting any endpoint you must authorize your self first
 <br>
 
-1. **POST /api/auth/authentcation:** authorization endpoint by specifying username and password in Request Body.
+1. **POST /auth/authentcation:** authorization endpoint by specifying username and password in Request Body.
 
 2. The response will be a JWT Token
 3. Put this token in the Authorization header of all coming requests
